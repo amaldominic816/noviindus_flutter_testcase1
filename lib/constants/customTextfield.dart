@@ -1,11 +1,7 @@
-
-
-
-
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatefulWidget {
-  // final TextEditingController controller;
+  final TextEditingController controller;
   final TextInputType keyboardType;
   final String hintText;
   final bool isRequired;
@@ -18,11 +14,11 @@ class CustomTextField extends StatefulWidget {
   final Color? errorBorderColor;
   final TextStyle? hintStyle;
   final TextStyle? textStyle;
-  final title ;
+  final String title;
 
   const CustomTextField({
     Key? key,
-    // required this.controller,
+    required this.controller,
     required this.keyboardType,
     required this.hintText,
     this.isRequired = false,
@@ -34,7 +30,8 @@ class CustomTextField extends StatefulWidget {
     this.focusedBorderColor,
     this.errorBorderColor,
     this.hintStyle,
-    this.textStyle,  this.title,
+    this.textStyle,
+    required this.title,
   }) : super(key: key);
 
   @override
@@ -45,23 +42,23 @@ class _CustomTextFieldState extends State<CustomTextField> {
   bool isTextEntered = false;
   bool showError = false;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   widget.controller.addListener(_textChanged);
-  // }
-  //
-  // @override
-  // void dispose() {
-  //   widget.controller.removeListener(_textChanged);
-  //   super.dispose();
-  // }
-  //
-  // void _textChanged() {
-  //   setState(() {
-  //     isTextEntered = widget.controller.text.isNotEmpty;
-  //   });
-  // }
+  @override
+  void initState() {
+    super.initState();
+    widget.controller.addListener(_textChanged);
+  }
+
+  @override
+  void dispose() {
+    widget.controller.removeListener(_textChanged);
+    super.dispose();
+  }
+
+  void _textChanged() {
+    setState(() {
+      isTextEntered = widget.controller.text.isNotEmpty;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,22 +67,24 @@ class _CustomTextFieldState extends State<CustomTextField> {
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text( "${widget.title}",),
+          child: Text(
+            "${widget.title}",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
         ),
-
         Stack(
           alignment: Alignment.centerRight,
           children: [
-
             TextFormField(
-              // controller: widget.controller,
+              controller: widget.controller,
               keyboardType: widget.keyboardType,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Color.fromRGBO(217, 217, 217, 0.25),
-                prefixIcon: widget.prefixIcon != null
-                    ? Icon(widget.prefixIcon)
-                    : null,
+                prefixIcon: widget.prefixIcon != null ? Icon(widget.prefixIcon) : null,
                 suffixIcon: widget.suffixIcon != null
                     ? IconButton(
                   icon: Icon(widget.suffixIcon),
@@ -147,11 +146,20 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   style: TextStyle(
                     color: Colors.red,
                     fontWeight: FontWeight.bold,
+                    fontSize: 20,
                   ),
                 ),
               ),
           ],
         ),
+        if (showError)
+          Padding(
+            padding: const EdgeInsets.only(left: 16, top: 4),
+            child: Text(
+              'Please enter a valid ${widget.title.toLowerCase()}',
+              style: TextStyle(color: Colors.red, fontSize: 12),
+            ),
+          ),
       ],
     );
   }

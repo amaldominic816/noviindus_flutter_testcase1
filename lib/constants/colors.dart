@@ -23,4 +23,5 @@ const white = Color.fromRGBO(255, 255, 255, 1);
 const buttonprimary = Color.fromRGBO(0, 104, 55, 1.0);
 const txtcolor = Color.fromRGBO(0, 166, 79, 1.0);
 const bordercolor = Color.fromRGBO(163, 212, 255, 1);
-const gradient1 = Color.fromRGBO(2, 20, 0, 0.6);
+const gradient1 = Color.fromRGBO(241, 241, 241, 1.0);
+

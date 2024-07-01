@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/customButton.dart';
@@ -53,7 +54,10 @@ class _PatientListViewState extends State<PatientListView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+
         children: [
+          SizedBox(height: 20,),
+
           SearchWidget(
             controller: TextEditingController(), // Use your own TextEditingController instance
             onSubmitted: (value) {
@@ -215,7 +219,7 @@ class PatientCard extends StatelessWidget {
       child: Container(
         height: 166,
         decoration: BoxDecoration(
-          color: Color.fromRGBO(241, 241, 241, 1.0),
+          color: gradient1,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
@@ -298,4 +302,6 @@ class PatientCard extends StatelessWidget {
       ),
     );
   }
+
 }
+

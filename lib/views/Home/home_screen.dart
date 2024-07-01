@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_testcase_one/services/auth_service.dart';
 import 'package:flutter_testcase_one/views/Home/widgets/patient_list_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 import '../../constants/customButton.dart';
+import '../authentication/login_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+   HomeScreen({super.key});
 
-
+  final AuthService _authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +19,29 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         actions: [
           IconButton(
-            icon: Icon(Icons.notifications),
-            onPressed: () {},
+            icon: Icon(Icons.logout),
+            onPressed: () async {
+              await _authService.logout();
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => LoginScreen()),
+              );
+            },
           ),
+          GestureDetector(
+            onTap: () {
+
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: SvgPicture.asset(
+                "assets/images/notification.svg",
+                height: 28,
+                width: 28,
+              ),
+            ),
+          ),
+
         ],
       ),
       floatingActionButton: CustomElevatedButton(
@@ -44,9 +68,10 @@ class HomeScreen extends StatelessWidget {
 
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      body: Container(
-        child: PatientListView(),
-      ),
+      body:
+      PatientListView(),
     );
   }
+
 }
+
