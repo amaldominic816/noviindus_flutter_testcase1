@@ -19,8 +19,10 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
+
           children: [
             Container(
+              color: Colors.red,
               height: 217,
               child: Stack(
                 fit: StackFit.expand,

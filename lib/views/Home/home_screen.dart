@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_testcase_one/services/auth_service.dart';
 import 'package:flutter_testcase_one/views/Home/widgets/patient_list_widget.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
 import '../../constants/customButton.dart';
+import '../../provider/registration_provider.dart';
+import '../Registration/registration_screen.dart';
 import '../authentication/login_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -17,6 +20,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         actions: [
           IconButton(
             icon: Icon(Icons.logout),
@@ -47,10 +51,10 @@ class HomeScreen extends StatelessWidget {
       floatingActionButton: CustomElevatedButton(
         text: "Register Now",
         onPressed: () {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => Registerscreen()),
-          // ).then((value) => Provider.of<RegistrationController>(context, listen: false).onRegister());
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Registerscreen()),
+          ).then((value) => Provider.of<RegistrationController>(context, listen: false).onRegister());
 
 
         },
